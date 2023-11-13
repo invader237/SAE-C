@@ -1,17 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <SDL.h>
+//#include <SDL.h>
 
 int randGenerator();
-int sequenceGenerator();
+int* sequenceGenerator();
 int computeNextTerm();
 
 int* sequenceGenerator() {
 
   int a = randGenerator(), b = randGenerator(), c = randGenerator();
-  int sequence[4] = {c};
-  
+  int* sequence = (int*)malloc(4 * sizeof(int));
+  sequence[0]= c;
   for (int i = 1; i <= 3; i++) {
         //calculation of the following terms of the sequence based on the randomly generated terms
         sequence[i] = computeNextTerm(sequence[i - 1], a, b);
@@ -72,3 +72,4 @@ while (!quit) {
   SDL_Quit();*/
 	return 0;
 }
+ 
