@@ -6,8 +6,17 @@
 
 #define NB_VOYELLES (sizeof(vowel) / sizeof(char) - 1)
 
-int verifNumber(const char *nb)
-{
+int verifNumber(const char *nb){
+    /**
+     * checks whether the input character is an integer
+     * parameter:
+     *      - 
+     * 
+     * Local variables:
+     *      - 
+     * 
+     * return:
+     */
   int test;
   char extra;
 
@@ -21,12 +30,33 @@ int verifNumber(const char *nb)
 
 
 char generateOneRandomVowel() {
+    /**
+     * Generates one vowel wich will be reused in generateVowelList
+     * parameter:
+     *      - none
+     * 
+     * Local variables:
+     *      - vowel[](char): list of the six vowels
+     *      - index (int): generates a random vowel
+     * 
+     * return:vowel[index]
+     */
     char vowel[] ="AEIOUY";
     int index = rand() % NB_VOYELLES;
     return vowel[index];
 }
 
 char* generateVowelList() {
+    /**
+     * Generates four vowels
+     * parameter:
+     *      - none
+     * 
+     * Local variables:
+     *      - vowelListe[4](char): The caracters that were generated randomly
+     * 
+     * return: vowelList
+     */
     srand(time(NULL));
     char* vowelListe = (char*)malloc(4 * sizeof(char)); // Ajout de l'espace pour le caractère nul
     if (vowelListe == NULL) {
@@ -44,6 +74,15 @@ char* generateVowelList() {
 }
 
 int verifVowel(char caracter) {
+    /**
+     * Verify if the entry caracter is a vowel
+     * parameter:
+     *       -caracter (char): The caracters the player entered
+     *
+     * Local variables:
+     *       -vowel[] (char): Count correct vowels that are well-placed
+     * return: 0 if the caracter is a vowel or 1 if the caracter isn't
+     */
     char vowel[] = "AEIOUY";
     for (int i = 0; i < NB_VOYELLES; i++) {
         if (caracter == vowel[i]) {
@@ -54,6 +93,18 @@ int verifVowel(char caracter) {
 }
 
 int checkPosCorrect(char *user,char *vowelListe) {
+
+    /**
+     * Checks whether the vowel is correct and well-positioned
+     * parameter:
+     *       -user (char): The caracters the player entered
+     *       -vowelList (char): The caracters that were generated randomly
+     * Local variables:
+     *       -correctPos (int): Count correct vowels that are well-placed
+     *
+     * return: correctPos
+     */
+
     // Compteur de voyelles correctement placées
     int correctPos = 0;
 
@@ -67,6 +118,20 @@ int checkPosCorrect(char *user,char *vowelListe) {
 }
 
 int checkPosIncorrect(char *user,char *vowelListe) {
+    /**
+     * Checks whether the vowel is correct but misplaced
+     *
+     * parameter:
+     *       -user (char): The caracters the player entered
+     *       -vowelList (char): The caracters that were generated randomly
+     *
+     * Local variables:
+     *       -incorrectPos (int): Count correct vowels but misplaced
+     *       -checkedIndices[4](int): Table to keep track of vowels already checked to avoid duplicates
+     * 
+     * return: incorrectPos
+     */
+
     // Compteur de voyelles présentes mais mal placées
     int incorrectPos = 4;
 
