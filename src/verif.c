@@ -6,15 +6,19 @@
 
 #define NB_VOYELLES (sizeof(vowel) / sizeof(char) - 1)
 
-int verifNumber(double d)
+int verifNumber(const char *nb)
 {
-    if (d == floor(d))
-        puts("Entier");
-    else
-        puts("Flottant");
+  int test;
+  char extra;
 
-    return 0;
+    // Tente de convertir la chaîne en un entier et vérifie si la conversion est réussie
+  if (sscanf(nb, "%d%c", &test, &extra) == 1 && extra == '\0') {
+      return 1;  // La chaîne est un entier
+  } else {
+        return 0;  // La chaîne n'est pas un entier ou contient un point flottant
+  }
 }
+
 
 char generateOneRandomVowel() {
     char vowel[] ="AEIOUY";
