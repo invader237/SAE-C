@@ -2,8 +2,11 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <string.h>
 #include "/mnt/c/Users/diego/SAE-C/include/SDL2/SDL.h"
-
+#include "/mnt/c/Users/diego/SAE-C/include/SDL2/SDL_ttf.h"
+#include "ms.h"
+#include "../include/gameHeader.h"
 #define SCREEN_WIDTH 960
 #define SCREEN_HEIGHT 540
 
@@ -12,8 +15,8 @@
 #define BUTTON_SPACING 80
 #define BUTTON_MARGIN 40
 
-int main(int argc, char* args[]) {
 
+int mainMenue() {
     // Initialization of the sdl window and renderer
     SDL_Window* mainWindow;
     SDL_Renderer* renderer;
@@ -24,7 +27,7 @@ int main(int argc, char* args[]) {
     }
 
     // Creating the window
-    mainWindow = SDL_CreateWindow("Super Epic Mini Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH , SCREEN_HEIGHT , SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS);
+    mainWindow = SDL_CreateWindow("Super Epic Mini Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH , SCREEN_HEIGHT , SDL_WINDOW_SHOWN /*| SDL_WINDOW_BORDERLESS*/);
     if (mainWindow == NULL) {
         printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
         return 1;
@@ -81,10 +84,36 @@ int main(int argc, char* args[]) {
     SDL_Rect src3 = { BUTTON_MARGIN*5+240*2, SCREEN_HEIGHT / 2, 240, 240} ;
     SDL_RenderCopy(renderer, picture3Texture, NULL, &src3);  
 
+
+
+
+    TTF_Init();
+
+    TTF_Font* font = TTF_OpenFont("/mnt/c/Windows/Fonts/Arial.ttf", 28); // Le chemin complet vers la police est requis
+    SDL_Color textColor = {255, 255, 0};
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, "MASTERMIND", textColor);
+    SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+    SDL_FreeSurface(textSurface);
+    SDL_Rect textRect = {BUTTON_WIDTH/2 - textSurface->w/2 + BUTTON_MARGIN, SCREEN_HEIGHT/2-SCREEN_HEIGHT/5 + 10, textSurface->w, textSurface->h};
+    SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+
+    SDL_Surface* textSurface2 = TTF_RenderText_Solid(font, "SUITE MYSTERE", textColor);
+    SDL_Texture* textTexture2 = SDL_CreateTextureFromSurface(renderer, textSurface2);
+    SDL_FreeSurface(textSurface2);
+    SDL_Rect textRect2 = {BUTTON_WIDTH/2 - textSurface->w/2 + BUTTON_MARGIN+ BUTTON_SPACING+BUTTON_WIDTH, SCREEN_HEIGHT/2-SCREEN_HEIGHT/5 +10, textSurface2->w, textSurface2->h};
+    SDL_RenderCopy(renderer, textTexture2, NULL, &textRect2);
+
+    SDL_Surface* textSurface3 = TTF_RenderText_Solid(font, "DEVINE NOMBRE", textColor);
+    SDL_Texture* textTexture3 = SDL_CreateTextureFromSurface(renderer, textSurface3);
+    SDL_FreeSurface(textSurface3);
+    SDL_Rect textRect3 = {BUTTON_WIDTH/2-textSurface->w/2+BUTTON_MARGIN+BUTTON_SPACING*2+BUTTON_WIDTH*2, SCREEN_HEIGHT/2-SCREEN_HEIGHT/5 +10, textSurface2->w, textSurface2->h};
+    SDL_RenderCopy(renderer, textTexture3, NULL, &textRect3);
+
+
     // Display the scene
     SDL_RenderPresent(renderer);
     
-
+    char textInput[256] = "";
     SDL_Event e;
     int quit = 0;
     while (!quit) {
@@ -98,27 +127,36 @@ int main(int argc, char* args[]) {
             else if (e.type == SDL_MOUSEBUTTONDOWN) {
               if (e.button.y <= buttonPosition.y + 55 && e.button.y>= buttonPosition.y){
                 if(e.button.x<=BUTTON_MARGIN + 240 && e.button.x>= BUTTON_MARGIN){
-                  printf("b1\n");                  
+                  printf("b1\n");
+                  SDL_DestroyRenderer(renderer);
+                  SDL_DestroyWindow(mainWindow);
+                  SDL_Quit();
+                  mastermind();
+                  break;
                 }
                 else if(e.button.x<=BUTTON_MARGIN + 1 * (BUTTON_WIDTH + BUTTON_SPACING) + 240 && e.button.x>= BUTTON_MARGIN + 1 * (BUTTON_WIDTH + BUTTON_SPACING)){
-                  printf("b2\n");                  
+                  printf("b2\n");
+                  SDL_DestroyRenderer(renderer);
+                  SDL_DestroyWindow(mainWindow);
+                  SDL_Quit();
+                  mysterySequence();
+                  break;
                 }
                 else if(e.button.x<=BUTTON_MARGIN + 2 * (BUTTON_WIDTH + BUTTON_SPACING) + 240 && e.button.x>= BUTTON_MARGIN + 2 * (BUTTON_WIDTH + BUTTON_SPACING)){
-                  printf("b3\n");                  
+                  printf("b3\n");
+                  SDL_DestroyRenderer(renderer);
+                  SDL_DestroyWindow(mainWindow);
+                  SDL_Quit();
+                  hiddenNumber();
+                  break;
                 } 
               } 
-            }
-            // Gérer les événements du clavier
             else if (e.type == SDL_KEYDOWN) {
-                printf("Touche pressée (code SDL): %d\n", e.key.keysym.sym);
                 quit = 1;
+                break;
+              }
             }
-        }
-
-        // Mettre à jour le rendu ou effectuer d'autres actions en fonction des événements
-
-        // Attendre un court laps de temps pour ne pas monopoliser le processeur
-        SDL_Delay(10);
+        } 
     }
 
     // Détruire la fenêtre et quitter SDL
@@ -130,4 +168,7 @@ int main(int argc, char* args[]) {
     return 0;
 }
 
-
+int main(){
+  mainMenue();
+  return 0;
+}
