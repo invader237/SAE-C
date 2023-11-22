@@ -16,7 +16,6 @@ int verifVowel(char caracter);
 
 int mastermind() {
     char* vowelListe = generateVowelList();
-    printf("%c%c%c%c",vowelListe[0],vowelListe[1],vowelListe[2],vowelListe[3]);
 
     if (vowelListe == NULL) {
         printf("Erreur d'allocation mémoire.\n");
