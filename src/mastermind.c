@@ -3,6 +3,7 @@
 #include <ctype.h>
 #include <time.h>
 #include "../include/gameHeader.h"
+#include "../include/windowHeader.h"
 
 #define NB_VOYELLES (sizeof(vowel) / sizeof(char) - 1)
 #define NB_ESSAIS 10
@@ -29,7 +30,7 @@ int mastermind() {
 
     // Affichage de l'instruction pour le joueur
     printf("Essayez de deviner la séquence de voyelles en majuscules!\n");
-
+    
     for (int essaiCount = 1; essaiCount <= NB_ESSAIS; essaiCount++) {
         printf("\nEssai %d: Saisissez 4 voyelles en majuscules:\n", essaiCount);
 
@@ -56,7 +57,7 @@ int mastermind() {
             printf("Félicitations, vous avez trouvé la séquence!\n");
             // Calcul du score en fonction du temps écoulé
             tempsEcoule = difftime(time(NULL), debut);
-            score = (TEMPS_LIMITE - tempsEcoule) * 10;
+            score = tempsEcoule * 10;
             if (score < 0) {
                 score = 0;  // Le score ne peut pas être négatif
             }
@@ -73,20 +74,12 @@ int mastermind() {
 
         // Vérification du temps écoulé
         tempsEcoule = difftime(time(NULL), debut);
-        if (tempsEcoule >= TEMPS_LIMITE) {
-            printf("Temps écoulé! Vous n'avez pas trouvé la séquence à temps. Votre score est 0.\n");
-            break;
-        }
     }
 
     // Libération de la mémoire allouée pour la liste de voyelles
     free(vowelListe);
+    writeIfGreater(1,score);
+    mainMenue();
 
-    return 0;
-}
-
-int main()
-{
-    mastermind();
     return 0;
 }
