@@ -7,14 +7,14 @@
 //======================//
 
 int hiddenNumber();
-int verifNumber(double d);
+int verifNumber(const char *nb);
 
 //----------------------//
 
 //======================//
 //===Mystery Sequence===//
 //======================//
-
+int principal();
 //----------------------//
 
 //======================//
