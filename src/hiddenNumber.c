@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
-#include "../include/windowHeader.h"
+#include <stdbool.h>
 #include "../include/gameHeader.h"
 
 int hiddenNumber()
@@ -9,39 +9,46 @@ int hiddenNumber()
     srand(time(NULL));
     int i = 0;
     int nb_hidden = rand() % 1000 + 1;
-    int nb;
+    char input[10]; // Utiliser une chaîne de caractères pour stocker l'entrée de l'utilisateur
 
     printf("Devinez un nombre entre 1 et 1000\n");
-    scanf("%d", &nb);
 
-    if (nb > 1000 || nb < 1)
+    do
     {
-        printf("Le nombre doit être entre 1 et 1000\n");
-        return 1; // Quitter le programme en cas d'erreur
-    }
-    while (nb != nb_hidden && i < 10)
-    {
-        if (nb > nb_hidden)
+        printf("Entrez un nombre : ");
+        scanf("%s", input);
+
+        if (!isInteger(input))
         {
-            printf("Le nombre choisi est trop grand\n");
+            printf("Veuillez entrer un nombre entier.\n");
         }
         else
         {
-            printf("Le nombre choisi est trop petit\n");
-        }
+            int nb = atoi(input);
 
-        i++; // Utilisez simplement i++ pour augmenter la valeur de i
-        printf("Nombre d'essais restants : %d\n", 10 - i);
+            if (nb > 1000 || nb < 1)
+            {
+                printf("Le nombre doit être entre 1 et 1000\n");
+                return 1; // Quitter le programme en cas d'erreur
+            }
 
-        if (i < 10) // Ajout de cette condition pour éviter de demander une saisie supplémentaire après 10 essais
-        {
-            printf("Entrez un nouveau nombre : ");
-            scanf("%d", &nb);
+            if (nb > nb_hidden)
+            {
+                printf("Le nombre choisi est trop grand\n");
+            }
+            else if (nb < nb_hidden)
+            {
+                printf("Le nombre choisi est trop petit\n");
+            }
+
+            i++;
+            printf("Nombre d'essais restants : %d\n", 10 - i);
         }
+    } while (i < 10 && atoi(input) != nb_hidden);
+
     printf("\033[H\033[J");
-    }
 
-    if (nb == nb_hidden)
+    if (atoi(input) == nb_hidden)
     {
         printf("Bravo, vous avez trouvé le nombre caché : %d\n", nb_hidden);
         printf("Votre score est de %d essais\n", i);
@@ -51,13 +58,6 @@ int hiddenNumber()
         printf("Désolé, vous n'avez pas trouvé le nombre caché. Le nombre était : %d\n", nb_hidden);
         printf("Votre score est de 11\n");
     }
-    writeIfGreater(3,i);
-    mainMenue();
-    return i;
-}
 
-/*int main()
-{
-    hiddenNumber();
     return 0;
-}*/
+}

@@ -5,48 +5,6 @@
 #include "../include/windowHeader.h"
 #include "../include/gameHeader.h"
 
-int randGenerator();
-int* sequenceGenerator();
-int computeNextTerm();
-int principal();
-
-
-
-int* sequenceGenerator() {
-  /*
- * This function allows you to create a sequence 
- * of the form Un= axU_(n-1)+b and u_(0)=c with a, b and c generated randomly
- *
- * Parameters:
- * - none
- *
- * Returns:
- * 
- */
-  int a = randGenerator(), b = randGenerator(), c = randGenerator();
-  int* sequence = (int*)malloc(4 * sizeof(int));
-  sequence[0]= c;
-  for (int i = 1; i <= 3; i++) {
-        //calculation of the following terms of the sequence based on the randomly generated terms
-        sequence[i] = computeNextTerm(sequence[i - 1], a, b);
-    }
-  return sequence;
-
-}
-
-int computeNextTerm(int prevTerm, int a, int b) {
-  //calculating the next term of the sequence
-  return a * prevTerm + b;
-
-}
-
-int randGenerator() {
-
-  //generates a random number between 1 and 10 with time as seed
-	int number = rand() % 10 + 1;
-	return number;
-
-}
 
 int mysterySequence() {
 
@@ -75,12 +33,12 @@ int mysterySequence() {
         printf("\nEntrez un entier :");
 
         scanf("%s", input);
-        int isInt = verifNumber(input);
+        int isInt = isInteger(input);
 
         while(!isInt==1) {
           printf("\nEntrez un entier :");
           scanf("%s", input);
-          isInt = verifNumber(input);
+          isInt = isInteger(input);
         }
 
         if (atoi(input) == sequence[3]) {

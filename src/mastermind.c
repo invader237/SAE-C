@@ -9,11 +9,6 @@
 #define NB_ESSAIS 10
 #define TEMPS_LIMITE 30
 
-int checkPosCorrect(char *user, char *vowelListe);
-int checkPosIncorrect(char *user, char *vowelListe);
-char generateOneRandomVowel();
-char* generateVowelList();
-int verifVowel(char caracter);
 
 int mastermind() {
     char* vowelListe = generateVowelList();

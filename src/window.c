@@ -3,10 +3,10 @@
 #include <time.h>
 #include <unistd.h>
 #include <string.h>
-#include "/mnt/c/Users/diego/SAE-C/include/SDL2/SDL.h"
-#include "/mnt/c/Users/diego/SAE-C/include/SDL2/SDL_ttf.h"
-#include "ms.h"
+#include "../include/SDL2/SDL.h"
+#include "../include/SDL2/SDL_ttf.h"
 #include "../include/gameHeader.h"
+
 #define SCREEN_WIDTH 960
 #define SCREEN_HEIGHT 540
 
@@ -27,7 +27,7 @@ int mainMenue() {
     }
 
     // Creating the window
-    mainWindow = SDL_CreateWindow("Super Epic Mini Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH , SCREEN_HEIGHT , SDL_WINDOW_SHOWN /*| SDL_WINDOW_BORDERLESS*/);
+    mainWindow = SDL_CreateWindow("Super Epic Mini Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH , SCREEN_HEIGHT , SDL_WINDOW_SHOWN | SDL_WINDOW_BORDERLESS);
     if (mainWindow == NULL) {
         printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
         return 1;
@@ -85,11 +85,9 @@ int mainMenue() {
     SDL_RenderCopy(renderer, picture3Texture, NULL, &src3);  
 
 
-
-
     TTF_Init();
-
-    TTF_Font* font = TTF_OpenFont("/mnt/c/Windows/Fonts/Arial.ttf", 28); // Le chemin complet vers la police est requis
+    //Displays text for buttons
+    TTF_Font* font = TTF_OpenFont("/mnt/c/Windows/Fonts/Arial.ttf", 28);
     SDL_Color textColor = {255, 255, 0};
     SDL_Surface* textSurface = TTF_RenderText_Solid(font, "MASTERMIND", textColor);
     SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
@@ -117,17 +115,22 @@ int mainMenue() {
     SDL_Event e;
     int quit = 0;
     while (!quit) {
-        // Gérer les événements de la file d'attente
+        // Manage queue events
         while (SDL_PollEvent(&e) != 0) {
             // L'utilisateur ferme la fenêtre
             if (e.type == SDL_QUIT) {
                 quit = 1;
             }
-            // Gérer les événements de la souris
+            // Exits when the q key is pressed
+            else if (e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.sym == SDLK_q) {
+                    quit = 1;
+              }     
+              }
+            // Handle mouse events
             else if (e.type == SDL_MOUSEBUTTONDOWN) {
               if (e.button.y <= buttonPosition.y + 55 && e.button.y>= buttonPosition.y){
                 if(e.button.x<=BUTTON_MARGIN + 240 && e.button.x>= BUTTON_MARGIN){
-                  printf("b1\n");
                   SDL_DestroyRenderer(renderer);
                   SDL_DestroyWindow(mainWindow);
                   SDL_Quit();
@@ -135,7 +138,6 @@ int mainMenue() {
                   break;
                 }
                 else if(e.button.x<=BUTTON_MARGIN + 1 * (BUTTON_WIDTH + BUTTON_SPACING) + 240 && e.button.x>= BUTTON_MARGIN + 1 * (BUTTON_WIDTH + BUTTON_SPACING)){
-                  printf("b2\n");
                   SDL_DestroyRenderer(renderer);
                   SDL_DestroyWindow(mainWindow);
                   SDL_Quit();
@@ -143,18 +145,13 @@ int mainMenue() {
                   break;
                 }
                 else if(e.button.x<=BUTTON_MARGIN + 2 * (BUTTON_WIDTH + BUTTON_SPACING) + 240 && e.button.x>= BUTTON_MARGIN + 2 * (BUTTON_WIDTH + BUTTON_SPACING)){
-                  printf("b3\n");
                   SDL_DestroyRenderer(renderer);
                   SDL_DestroyWindow(mainWindow);
                   SDL_Quit();
                   hiddenNumber();
                   break;
                 } 
-              } 
-            else if (e.type == SDL_KEYDOWN) {
-                quit = 1;
-                break;
-              }
+              }             
             }
         } 
     }

@@ -7,14 +7,17 @@
 //======================//
 
 int hiddenNumber();
-int verifNumber(const char *nb);
+int isInteger(char input[]);
 
 //----------------------//
 
 //======================//
 //===Mystery Sequence===//
 //======================//
-int principal();
+int mysterySequence();
+int randGenerator();
+int* sequenceGenerator();
+int computeNextTerm();
 //----------------------//
 
 //======================//
@@ -29,5 +32,7 @@ char* generateVowelList();
 int verifVowel(char caracter);
 
 //----------------------//
+
+void writeIfGreater(int gameNumber, int newScore);
 
 #endif
