@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include "../include/windowHeader.h"
 #include "../include/gameHeader.h"
 
 int hiddenNumber()
@@ -50,12 +51,13 @@ int hiddenNumber()
         printf("Désolé, vous n'avez pas trouvé le nombre caché. Le nombre était : %d\n", nb_hidden);
         printf("Votre score est de 11\n");
     }
-
-    return 0;
+    writeIfGreater(3,i);
+    mainMenue();
+    return i;
 }
 
-int main()
+/*int main()
 {
     hiddenNumber();
     return 0;
-}
+}*/
