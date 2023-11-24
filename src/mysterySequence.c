@@ -14,19 +14,19 @@ int mysterySequence() {
   srand(time(NULL));
   int* sequence = sequenceGenerator();
   time(&startTime);
-
+  printf("\n ███╗   ███╗██╗   ██╗███████╗████████╗███████╗██████╗ ██╗   ██╗    ███████╗███████╗ ██████╗ ██╗   ██╗███████╗███╗   ██╗ ██████╗███████╗\n ████╗ ████║╚██╗ ██╔╝██╔════╝╚══██╔══╝██╔════╝██╔══██╗╚██╗ ██╔╝    ██╔════╝██╔════╝██╔═══██╗██║   ██║██╔════╝████╗  ██║██╔════╝██╔════╝\n ██╔████╔██║ ╚████╔╝ ███████╗   ██║   █████╗  ██████╔╝ ╚████╔╝     ███████╗█████╗  ██║   ██║██║   ██║█████╗  ██╔██╗ ██║██║     █████╗  \n ██║╚██╔╝██║  ╚██╔╝  ╚════██║   ██║   ██╔══╝  ██╔══██╗  ╚██╔╝      ╚════██║██╔══╝  ██║▄▄ ██║██║   ██║██╔══╝  ██║╚██╗██║██║     ██╔══╝  \n ██║ ╚═╝ ██║   ██║   ███████║   ██║   ███████╗██║  ██║   ██║       ███████║███████╗╚██████╔╝╚██████╔╝███████╗██║ ╚████║╚██████╗███████╗\n ╚═╝     ╚═╝   ╚═╝   ╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝   ╚═╝       ╚══════╝╚══════╝ ╚══▀▀═╝  ╚═════╝ ╚══════╝╚═╝  ╚═══╝ ╚═════╝╚══════╝\n");
   while (1) {
         time(&currentTime);
         double deltaTime = difftime(currentTime, startTime);
-        printf("\nPremier terme: %d \nDeuxième terme: %d \nTroisième terme: %d\n %d \n",
-            sequence[0],sequence[1],sequence[2], sequence[3]);
+        printf("\nPremier terme: %d \nDeuxième terme: %d \nTroisième terme: %d\n",
+            sequence[0],sequence[1],sequence[2]);
 
         if (deltaTime >= 30.0) {
-            printf("Le temps est écoulé ! La reponse était :%d\n Fin du jeu.\n", sequence[3]);
+            printf("Le temps est écoulé ! La reponse était :%d \nFin du jeu.\n", sequence[3]);
             break;  // Sortir de la boucle après 30 secondes
         }
 
-        printf("Temps restant : %.0f secondes\n", 30.0 - deltaTime);
+        printf("\nTemps restant : %.0f secondes\n", 30.0 - deltaTime);
 
         // Permettre aux joueurs d'entrer du texte
         char input[100];
@@ -42,11 +42,11 @@ int mysterySequence() {
         }
 
         if (atoi(input) == sequence[3]) {
-          printf("\nWin\n");
+          printf("\nWin           score:%d\n", 30-deltaTime);
           break;
         }
         else {
-          printf("\nreponse fausse\n");
+          printf("\nReponse fausse\n");
         }
     }
   writeIfGreater(2,30-deltaTime);
