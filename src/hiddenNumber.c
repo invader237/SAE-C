@@ -58,6 +58,7 @@ int hiddenNumber()
         printf("Désolé, vous n'avez pas trouvé le nombre caché. Le nombre était : %d\n", nb_hidden);
         printf("Votre score est de 11\n");
     }
-
+writeIfGreater(3,i);
+mainMenue();
     return 0;
 }
