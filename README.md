@@ -11,6 +11,7 @@ You clone the [source code](https://github.com/invader237/SAE-C) with the comman
 ```bash
 https://github.com/invader237/SAE-C.git
 ```
+Or you can download the [ZIP](https://github.com/invader237/SAE-C/archive/refs/heads/main.zip)
 
 Make sure you have the [SDL2](https://github.com/libsdl-org/SDL) and [SDL2_ttf](https://github.com/libsdl-org/SDL_ttf) libraries installed on your machine :
 ```bash
@@ -29,7 +30,7 @@ To execute enter the command `./window`.
 ### Made with
 Editor:
 * VS Code
-* NVIM
+* NVIM\
 Compiler:
 * gcc
 
